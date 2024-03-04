@@ -29,7 +29,7 @@ type CepViaCepResponse struct {
 	Siafi       string `json:"siafi"`
 }
 
-func buscarDadosCEPBrasilApi(cep string, c chan<- *CepBrasilApiResponse) {
+func buscarDadosBrasilApiCEP(cep string, c chan<- *CepBrasilApiResponse) {
 	url := fmt.Sprintf("https://brasilapi.com.br/api/cep/v1/%s", cep)
 
 	response, err := http.Get(url)
@@ -83,7 +83,7 @@ func main() {
 	c1 := make(chan *CepBrasilApiResponse)
 	c2 := make(chan *CepViaCepResponse)
 
-	go buscarDadosCEPBrasilApi(arg, c1)
+	go buscarDadosBrasilApiCEP(arg, c1)
 	go buscarDadosViaCepCEP(arg, c2)
 
 	select {
