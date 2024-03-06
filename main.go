@@ -30,8 +30,7 @@ type CepViaCepResponse struct {
 }
 
 func buscarDadosBrasilApiCEP(cep string, c chan<- *CepBrasilApiResponse) {
-	url := fmt.Sprintf("https://brasilapi.com.br/api/cep/v1/%s", cep)
-
+	url := fmt.Sprintf("https://brasilapi.com.br/api/cep/v2/%s", cep)
 	response, err := http.Get(url)
 
 	if err != nil {
