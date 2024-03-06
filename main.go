@@ -33,8 +33,8 @@ func buscarDadosBrasilApiCEP(cep string, c chan<- *CepBrasilApiResponse) {
 	url := fmt.Sprintf("https://brasilapi.com.br/api/cep/v1/%s", cep)
 
 	response, err := http.Get(url)
+
 	if err != nil {
-		fmt.Println(err)
 		return
 	}
 	defer response.Body.Close()
@@ -42,15 +42,12 @@ func buscarDadosBrasilApiCEP(cep string, c chan<- *CepBrasilApiResponse) {
 	if response.StatusCode != http.StatusOK {
 		return
 	}
-
 	var cepResponse CepBrasilApiResponse
 	err = json.NewDecoder(response.Body).Decode(&cepResponse)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-
-	fmt.Println(cepResponse, "CEP Brasil API")
 
 	c <- &cepResponse
 }
@@ -88,9 +85,7 @@ func main() {
 
 	select {
 	case cepBrasil := <-c1:
-		if cepBrasil != nil {
-			fmt.Println(cepBrasil, "Brasil API")
-		}
+		fmt.Println(cepBrasil, "Brasil API")
 	case cepViaCep := <-c2:
 		fmt.Println(cepViaCep, "Via Cep")
 	case <-time.After(time.Second):
