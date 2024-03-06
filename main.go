@@ -44,8 +44,8 @@ func buscarDadosBrasilApiCEP(cep string, c chan<- *CepBrasilApiResponse) {
 	}
 	var cepResponse CepBrasilApiResponse
 	err = json.NewDecoder(response.Body).Decode(&cepResponse)
+
 	if err != nil {
-		fmt.Println(err)
 		return
 	}
 
